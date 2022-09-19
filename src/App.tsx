@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "antd/dist/antd.css";
+import Header from "./Components/Header";
+import Workspace from "./Components/Workspace";
+import { BackTop, Button } from "antd";
+import { ArrowUpOutlined } from "@ant-design/icons";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="App-container">
+        <Header />
+        <Workspace />
+      </div>
+
+      <BackTop visibilityHeight={100}>
+        <Button
+          type="primary"
+          icon={<ArrowUpOutlined />}
+          shape="circle"
+          size="large"
         >
-          Learn React
-        </a>
-      </header>
+        </Button>
+      </BackTop>
     </div>
   );
 }

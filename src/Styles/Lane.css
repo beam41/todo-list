@@ -1,0 +1,22 @@
+.lane-container{
+    width: 18%;
+    min-width: 230px;
+    margin: 30px 10px 00px 10px;
+    padding: 10px 5px;
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 5px 5px 0px 0px;
+    background-color: rgb(246, 243, 243);
+}
+
+.lane-title{
+   font-size: 15px;
+   font-weight: bold;
+   margin-bottom: 15px;
+}
+
+.lane{
+    min-height: 91%;
+    padding: 5px;
+    background-color: rgb(222, 222, 222);
+    border-radius: 3px;
+}
