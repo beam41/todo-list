@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { Droppable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { mockData } from "../mock-data/data";
 import { IBacklog, IBacklogItem } from "../Models/Backlog.Model";
 import "../Styles/Lane.css";
+import { createCard } from "../utils/dispatchAction";
 import Card from "./Card";
 
-interface IComponentProp {
+interface IComponentProps {
   title: string;
   id: string;
-  children?: JSX.Element[];
+  data?: IBacklogItem[];
 }
 
-export default function Lane({ title, children, id }: IComponentProp) {
-  const [data, setData] = useState<IBacklogItem[]>([]);
-
+const Lane = ({ id, title, data }: IComponentProps) => {
+  const dispatch = useDispatch();
   useEffect(() => {
     getData();
   }, []);
@@ -21,7 +23,7 @@ export default function Lane({ title, children, id }: IComponentProp) {
   const getData = async () => {
     // fetch data
     const d = mockData[title.toLowerCase()];
-    setData(d);
+    dispatch(createCard(title, d));
   };
 
   return (
@@ -33,13 +35,22 @@ export default function Lane({ title, children, id }: IComponentProp) {
           {...provided.droppableProps}
         >
           <div className="lane-title">{title}</div>
-          {data.map((el, index) => (
+          {data?.map((el, index) => (
             <Card key={index} index={index} data={el} />
           ))}
-          <div>{children}</div>
           {provided.placeholder}
         </div>
       )}
     </Droppable>
   );
-}
+};
+
+const mapStateToProps = function (state: IBacklog, props: IComponentProps) {
+  return {
+    id: props.id,
+    title: props.title,
+    data: state[props.title.toLowerCase()],
+  } as IComponentProps;
+};
+
+export default connect(mapStateToProps)(Lane);

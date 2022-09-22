@@ -1,7 +1,7 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 10px;
-  border-radius: 5px;
+  padding: 8px;
+  border-radius: 3px;
   background-color: rgb(245, 245, 245);
   margin-bottom: 12px;
 }
@@ -25,7 +25,7 @@
 
 .title {
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 10px;
   margin-bottom: 10px;
   overflow: hidden;
@@ -38,10 +38,10 @@
 
 .tag{
   float: right;
-  margin-top: -10px;
-  margin-right: -10px;
+  margin-top: -8px;
+  margin-right: -8px;
   padding: 3px 10px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   color: #2a2929;
 }
@@ -50,7 +50,7 @@
   background-color: #ffc107;
 }
 
-.inprocess{
+.doing{
   background-color: #0c78ea;
 }
 

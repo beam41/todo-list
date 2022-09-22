@@ -1,6 +1,6 @@
 export interface IBacklog {
   todo: IBacklogItem[];
-  inprocess: IBacklogItem[];
+  doing: IBacklogItem[];
   done: IBacklogItem[];
 }
 
@@ -11,4 +11,4 @@ export interface IBacklogItem {
   description: string;
 }
 
-export type Status = "TODO" | "INPROCESS" | "DONE";
+export type Status = "TODO" | "DOING" | "DONE";

@@ -13,7 +13,7 @@ export default function Card({ data, index }: IComponentProp) {
   const statusDisplayed = status.toUpperCase();
 
   return (
-    <Draggable draggableId={id} index={index}>
+    <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
         <div
           className="card"
