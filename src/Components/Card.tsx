@@ -1,6 +1,9 @@
+import { Modal } from "antd";
+import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { IBacklogItem } from "../Models/Backlog.Model";
 import "../Styles/Card.css";
+import FormModal from "./FormModal";
 
 interface IComponentProp {
   data: IBacklogItem;
@@ -9,23 +12,47 @@ interface IComponentProp {
 
 export default function Card({ data, index }: IComponentProp) {
   const { status, name, description, id } = data;
-  const statusClass = status.toLowerCase();
-  const statusDisplayed = status.toUpperCase();
+  const [isShown, setIsShown] = useState(false);
+
+  const modalHandler = () => {
+    setIsShown(!isShown);
+  };
+
+  const onUpdateCard = async (data: any) => {
+    try {
+      console.log(data);
+      modalHandler();
+    } catch (error) {
+      console.log("error =>", error);
+    }
+  };
 
   return (
-    <Draggable key={id} draggableId={id} index={index}>
-      {(provided) => (
-        <div
-          className="card"
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <div className={`tag ${statusClass}`}>{statusDisplayed}</div>
-          <div className="title">{name}</div>
-          {description && <div className="detail">{description}</div>}
-        </div>
-      )}
-    </Draggable>
+    <>
+      <Draggable key={id} draggableId={id} index={index}>
+        {(provided) => (
+          <div
+            className="card"
+            onClick={modalHandler}
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <div className={`tag ${status}`}>{status}</div>
+            <div className="title">{name}</div>
+            {description && <div className="detail">{description}</div>}
+          </div>
+        )}
+      </Draggable>
+
+      <FormModal
+        isShown={isShown}
+        submitText="Update"
+        title={name}
+        description={description}
+        modalHandler={modalHandler}
+        handleFunction={onUpdateCard}
+      />
+    </>
   );
 }

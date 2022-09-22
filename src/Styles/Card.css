@@ -46,14 +46,14 @@
   color: #2a2929;
 }
 
-.todo{
+.TODO{
   background-color: #ffc107;
 }
 
-.doing{
+.DOING{
   background-color: #0c78ea;
 }
 
-.done{
+.DONE{
   background-color: #26c249;
 }

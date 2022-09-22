@@ -29,6 +29,7 @@ export default function Workspace() {
   };
 
   return (
+    <>
     <div className="ws-container">
       <DragDropContext onDragEnd={onDragEnd}>
         {Object.keys(Status).map((status: Status) => {
@@ -36,5 +37,7 @@ export default function Workspace() {
         })}
       </DragDropContext>
     </div>
+    </>
+    
   );
 }

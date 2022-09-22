@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Input, Button, Modal, Form } from "antd";
+import { Input, Button } from "antd";
 import "../Styles/Header.css";
+import FormModal from "./FormModal";
 
 const { Search } = Input;
-const { TextArea } = Input;
 
 export default function Header() {
-  const [form] = Form.useForm();
   const [isSearching, setIsSearching] = useState(false);
   const [isShown, setIsShown] = useState(false);
 
@@ -21,22 +20,16 @@ export default function Header() {
   };
 
   const modalHandler = () => {
-    form.resetFields();
     setIsShown(!isShown);
   };
 
-  const onCreateSubmit = async () => {
+  const onCreateCard = async (data: any) => {
     try {
-      const data = await form.validateFields();
-      onCreate(data);
+      console.log(data);
+      modalHandler()
     } catch (error) {
-      console.log("Validate Failed:", error);
+      console.log("error =>", error);
     }
-  };
-
-  const onCreate = (data) => {
-    console.log(data);
-    modalHandler();
   };
 
   return (
@@ -56,38 +49,12 @@ export default function Header() {
         </Button>
       </div>
 
-      <Modal
-        open={isShown}
-        okText="Create"
-        cancelText="Cancel"
-        onCancel={modalHandler}
-        onOk={onCreateSubmit}
-      >
-        <Form
-          form={form}
-          layout="vertical"
-          name="form_in_modal"
-          initialValues={{
-            modifier: "public",
-          }}
-        >
-          <Form.Item
-            name="title"
-            label="Title"
-            rules={[
-              {
-                required: true,
-                message: "Please title",
-              },
-            ]}
-          >
-            <Input showCount maxLength={30}/>
-          </Form.Item>
-          <Form.Item name="description" label="Description">
-            <TextArea autoSize style={{resize: "none"}}/>
-          </Form.Item>
-        </Form>
-      </Modal>
+      <FormModal
+        isShown={isShown}
+        submitText="Create"
+        modalHandler={modalHandler}
+        handleFunction={onCreateCard}
+      />
     </>
   );
 }

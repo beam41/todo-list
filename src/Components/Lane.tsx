@@ -46,8 +46,6 @@ const Lane = ({ id, status, data }: IComponentProps) => {
 };
 
 const mapStateToProps = function (state: IBacklog, props: IComponentProps) {
-  console.log(state)
-  console.log(props.status, state[props.status])
   return {
     id: props.id,
     status: props.status,
