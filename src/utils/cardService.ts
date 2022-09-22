@@ -1,9 +1,8 @@
 import { Store } from "redux";
-import { Status, IBacklogItem } from "../Models/Backlog.Model";
+import { Status, IBacklogItem, IBacklog } from "../Models/Backlog.Model";
 
-export const getCardByStatus = (id: string, s: string, store: Store) => {
-  const status = s.toLowerCase();
-  const data = store.getState();
+export const getCardByStatus = (id: string, status: Status, store: Store) => {
+  const data = store.getState() as IBacklog;
   return data[status].find((e) => e.id === id);
 };
 

@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Input, Button, Modal, Form } from "antd";
 import "../Styles/Header.css";
 
+const { Search } = Input;
+const { TextArea } = Input;
+
 export default function Header() {
-  const { Search } = Input;
-  const { TextArea } = Input;
   const [form] = Form.useForm();
   const [isSearching, setIsSearching] = useState(false);
   const [isShown, setIsShown] = useState(false);

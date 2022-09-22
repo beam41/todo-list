@@ -1,4 +1,3 @@
-import React from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useStore } from "react-redux";
 import { Status } from "../Models/Backlog.Model";
@@ -9,7 +8,6 @@ import Lane from "./Lane";
 
 export default function Workspace() {
   const store = useStore();
-  const titles = ["TODO", "DOING", "DONE"];
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
 
@@ -18,11 +16,14 @@ export default function Workspace() {
     if (!destination || destination.droppableId === source.droppableId) {
       return;
     }
-
-    const originId = source.droppableId;
+    // get originId and destinationId
+    const originId = source.droppableId as Status;
     const desId = destination.droppableId as Status;
-    const data = getCardByStatus(draggableId, source.droppableId, store);
-    const newData = updateCardStatus(data, desId)
+    // get card info
+    const data = getCardByStatus(draggableId, originId, store);
+    // update card status
+    const newData = updateCardStatus(data, desId);
+    // dispatch store
     store.dispatch(deleteCard(originId, data.id));
     store.dispatch(addCard(desId, newData));
   };
@@ -30,8 +31,8 @@ export default function Workspace() {
   return (
     <div className="ws-container">
       <DragDropContext onDragEnd={onDragEnd}>
-        {titles.map((status) => {
-          return <Lane key={status} id={status} title={status} />;
+        {Object.keys(Status).map((status: Status) => {
+          return <Lane key={status} id={status} status={status} />;
         })}
       </DragDropContext>
     </div>
