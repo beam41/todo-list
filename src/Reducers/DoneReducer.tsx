@@ -1,30 +1,35 @@
-import { IBacklogItem } from "../Models/Backlog.Model";
 import { DispatchAction } from "../Models/DispatchAction.Model";
+import cachData from "../utils/cacheData";
 
-export const DoneReducer = (
-  state: IBacklogItem[] = [],
-  action: DispatchAction
-) => {
+export const DoneReducer = (_, action: DispatchAction) => {
+  let holdData = null;
+
   switch (action.type) {
     case "CREATE_DONE":
-      state = action.payload;
+      cachData.updateDone([...action.payload]);
       break;
     case "ADD_DONE":
-      state = [...state, action.payload];
+      holdData = cachData.getDone();
+      cachData.updateDone([...holdData, action.payload]);
       break;
     case "EDIT_DONE":
       const index = action.payload.index;
-      state = [
-        ...state.slice(0, index),
+      holdData = cachData.getDone();
+      cachData.updateDone([
+        ...holdData.slice(0, index),
         ...[action.payload],
-        ...state.slice(index + 1),
-      ];
+        ...holdData.slice(index + 1),
+      ]);
       break;
     case "DELETE_DONE":
       const idx = action.payload;
-      state = [...state.slice(0, idx), ...state.slice(idx + 1)];
+      holdData = cachData.getDone();
+      cachData.updateDone([
+        ...holdData.slice(0, idx),
+        ...holdData.slice(idx + 1),
+      ]);
       break;
   }
 
-  return state;
+  return cachData.getDoneByFilter();
 };

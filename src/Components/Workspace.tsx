@@ -1,5 +1,5 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { useStore } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Status } from "../Models/Backlog.Model";
 import "../Styles/Workspace.css";
 import { getCardByStatus, updateCardStatus } from "../utils/cardService";
@@ -7,7 +7,7 @@ import { addCard, deleteCard } from "../utils/dispatchAction";
 import Lane from "./Lane";
 
 export default function Workspace() {
-  const store = useStore();
+  const dispatch = useDispatch();
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
 
@@ -20,13 +20,13 @@ export default function Workspace() {
     const originId = source.droppableId as Status;
     const desId = destination.droppableId as Status;
     // get card info
-    const card = getCardByStatus(draggableId, originId, store);
+    const card = getCardByStatus(draggableId, originId);
     const { data: oldData, index } = card;
     // update card status
     const newData = updateCardStatus(oldData, desId);
     // dispatch store
-    store.dispatch(deleteCard(originId, index));
-    store.dispatch(addCard(desId, newData));
+    dispatch(deleteCard(originId, index));
+    dispatch(addCard(desId, newData));
   };
 
   return (

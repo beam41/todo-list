@@ -18,13 +18,24 @@ export const addCard = (key: Status, data: IBacklogItem): DispatchAction => {
   };
 };
 
+export const searchCard = (key: Status, name?: string): DispatchAction => {
+  return Boolean(name)
+    ? {
+        type: `SEARCH_${key}`,
+        payload: name,
+      }
+    : {
+        type: `CLEAR_SEARCH_${key}`,
+        payload: name,
+      };
+};
+
 export const editCard = (key: Status, data: IBacklogItem): DispatchAction => {
   return {
     type: `EDIT_${key}`,
     payload: data,
   };
 };
-
 
 export const deleteCard = (key: Status, index: number): DispatchAction => {
   return {

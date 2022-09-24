@@ -1,9 +1,9 @@
-import { Modal } from "antd";
 import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { IBacklogItem } from "../Models/Backlog.Model";
 import "../Styles/Card.css";
+import { getCardByStatus } from "../utils/cardService";
 import { editCard } from "../utils/dispatchAction";
 import FormModal from "./FormModal";
 
@@ -27,9 +27,10 @@ export default function Card({ data, index }: IComponentProp) {
 
   const onUpdateCard = async (data: any) => {
     try {
+      const card = getCardByStatus(id, status);
       const payload: IBacklogItem = {
         id,
-        index,
+        index: card.index,
         status,
         name: data.title,
         description: data.description,

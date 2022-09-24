@@ -1,5 +1,5 @@
-import { Store } from "redux";
-import { Status, IBacklogItem, IBacklog } from "../Models/Backlog.Model";
+import { Status, IBacklogItem } from "../Models/Backlog.Model";
+import cacheData from "./cacheData";
 
 export const creatNewCard = (name: string, desscription: string) => {
   return {
@@ -10,13 +10,17 @@ export const creatNewCard = (name: string, desscription: string) => {
   } as IBacklogItem;
 };
 
-export const getCardByStatus = (id: string, status: Status, store: Store) => {
-  const data = store.getState() as IBacklog;
+export const getCardByStatus = (id: string, status: Status) => {
+  let data: IBacklogItem[];
+  if (status === Status.TODO) data = cacheData.getTodo();
+  else if (status === Status.DOING) data = cacheData.getDoing();
+  else data = cacheData.getDone();
+
   let idx: number;
-  const result = data[status].find((el, index) => {
+  const result = data.find((el, index) => {
     if (el.id === id) {
       idx = index;
-      return el;
+      return true;
     }
   });
 

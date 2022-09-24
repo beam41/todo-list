@@ -1,30 +1,35 @@
-import { IBacklogItem } from "../Models/Backlog.Model";
 import { DispatchAction } from "../Models/DispatchAction.Model";
+import cachData from "../utils/cacheData";
 
-export const DoingReducer = (
-  state: IBacklogItem[] = [],
-  action: DispatchAction
-) => {
+export const DoingReducer = (_, action: DispatchAction) => {
+  let holdData = null;
+
   switch (action.type) {
     case "CREATE_DOING":
-      state = action.payload;
+      cachData.updateDoing([...action.payload]);
       break;
     case "ADD_DOING":
-      state = [...state, action.payload];
+      holdData = cachData.getDoing();
+      cachData.updateDoing([...holdData, action.payload]);
       break;
     case "EDIT_DOING":
       const index = action.payload.index;
-      state = [
-        ...state.slice(0, index),
+      holdData = cachData.getDoing();
+      cachData.updateDoing([
+        ...holdData.slice(0, index),
         ...[action.payload],
-        ...state.slice(index + 1),
-      ];
+        ...holdData.slice(index + 1),
+      ]);
       break;
     case "DELETE_DOING":
       const idx = action.payload;
-      state = [...state.slice(0, idx), ...state.slice(idx + 1)];
+      holdData = cachData.getDoing();
+      cachData.updateDoing([
+        ...holdData.slice(0, idx),
+        ...holdData.slice(idx + 1),
+      ]);
       break;
   }
 
-  return state;
+  return cachData.getDoingByFilter();
 };

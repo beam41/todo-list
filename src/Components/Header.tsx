@@ -5,7 +5,8 @@ import FormModal from "./FormModal";
 import { Status } from "../Models/Backlog.Model";
 import { creatNewCard } from "../utils/cardService";
 import { useDispatch } from "react-redux";
-import { addCard } from "../utils/dispatchAction";
+import { addCard, searchCard } from "../utils/dispatchAction";
+import cacheData from "../utils/cacheData";
 
 const { Search } = Input;
 
@@ -14,14 +15,35 @@ export default function Header() {
   const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();
 
-  const onSearch = (val: string) => {
-    if (!val) return;
+  const searchHandler = (val: string) => {
+    Boolean(val) ? onSearch(val) : onClearSearch();
+  };
 
+  const onSearchPressEnter = () => {
+    const search: HTMLInputElement = document.getElementById(
+      "search-input"
+    ) as any;
+
+    if (search.value) searchHandler(search.value);
+  };
+
+  const onSearch = (val: string) => {
+    if (val === cacheData.searchKey) return;
     setIsSearching(true);
-    setTimeout(() => {
-      setIsSearching(false);
-      console.log(val);
-    }, 1500);
+
+    cacheData.searchKey = val;
+    dispatch(searchCard(Status.TODO, val));
+    dispatch(searchCard(Status.DOING, val));
+    dispatch(searchCard(Status.DONE, val));
+
+    setIsSearching(false);
+  };
+
+  const onClearSearch = () => {
+    cacheData.searchKey = "";
+    dispatch(searchCard(Status.TODO));
+    dispatch(searchCard(Status.DOING));
+    dispatch(searchCard(Status.DONE));
   };
 
   const modalHandler = () => {
@@ -43,9 +65,11 @@ export default function Header() {
       <div className="hd-container">
         <Search
           placeholder="Search Title"
-          onSearch={onSearch}
+          id="search-input"
           style={{ width: 250 }}
           loading={isSearching}
+          onSearch={searchHandler}
+          onPressEnter={onSearchPressEnter}
           enterButton
           allowClear
         />

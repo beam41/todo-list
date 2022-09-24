@@ -20,7 +20,7 @@ export default function FormModal({
   modalHandler,
 }: IComponentProps) {
   const [form] = Form.useForm();
-
+  
   useEffect(() => {
     if (form) form.resetFields();
   }, [isShown]);
