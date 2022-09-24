@@ -27,21 +27,24 @@ const Lane = ({ id, status, data }: IComponentProps) => {
   };
 
   return (
-    <Droppable droppableId={id}>
-      {(provided) => (
-        <div
-          className="lane-container"
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-        >
-          <div className="lane-title">{status}</div>
-          {data?.map((el, index) => (
-            <Card key={index} index={index} data={el} />
-          ))}
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
+    <div className="lane-container">
+      <div className="lane-title">{status}</div>
+
+      <Droppable droppableId={id}>
+        {(provided) => (
+          <div
+            className="card-container"
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {data?.map((el, index) => (
+              <Card key={index} index={index} data={el} />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </div>
   );
 };
 

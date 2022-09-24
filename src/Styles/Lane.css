@@ -8,6 +8,10 @@
     background-color: rgb(246, 243, 243);
 }
 
+.card-container{
+    height: 94%;
+}
+
 .lane-title{
    font-size: 15px;
    font-weight: bold;
