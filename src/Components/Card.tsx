@@ -1,8 +1,10 @@
 import { Modal } from "antd";
 import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
 import { IBacklogItem } from "../Models/Backlog.Model";
 import "../Styles/Card.css";
+import { editCard } from "../utils/dispatchAction";
 import FormModal from "./FormModal";
 
 interface IComponentProp {
@@ -13,14 +15,27 @@ interface IComponentProp {
 export default function Card({ data, index }: IComponentProp) {
   const { status, name, description, id } = data;
   const [isShown, setIsShown] = useState(false);
+  const dispatch = useDispatch();
 
   const modalHandler = () => {
     setIsShown(!isShown);
   };
 
+  const isChanged = (data: any) => {
+    return name !== data.name || description !== data.description;
+  };
+
   const onUpdateCard = async (data: any) => {
     try {
-      console.log(data);
+      const payload: IBacklogItem = {
+        id,
+        index,
+        status,
+        name: data.title,
+        description: data.description,
+      };
+
+      if (isChanged(payload)) dispatch(editCard(status, payload));
       modalHandler();
     } catch (error) {
       console.log("error =>", error);

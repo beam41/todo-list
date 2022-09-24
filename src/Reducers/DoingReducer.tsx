@@ -12,9 +12,16 @@ export const DoingReducer = (
     case "ADD_DOING":
       state = [...state, action.payload];
       break;
+    case "EDIT_DOING":
+      const index = action.payload.index;
+      state = [
+        ...state.slice(0, index),
+        ...[action.payload],
+        ...state.slice(index + 1),
+      ];
+      break;
     case "DELETE_DOING":
-      const ids = state.map((el) => el.id);
-      const idx = ids.indexOf(action.payload);
+      const idx = action.payload;
       state = [...state.slice(0, idx), ...state.slice(idx + 1)];
       break;
   }

@@ -5,20 +5,20 @@ export const mockData: IBacklog = {
     {
       id: "t-1",
       status: "TODO" as Status,
-      name: "test2-todo",
+      name: "test1-todo",
       description: "test description",
     },
     {
       id: "t-2",
       status: "TODO" as Status,
-      name: "test3-todo",
+      name: "test2-todo",
       description:
         "test overflow text, Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex, laboriosam.",
     },
     {
       id: "t-3",
       status: "TODO" as Status,
-      name: "test1-todo",
+      name: "test3-todo",
       description: "",
     },
   ],

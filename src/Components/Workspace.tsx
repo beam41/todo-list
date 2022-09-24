@@ -20,24 +20,24 @@ export default function Workspace() {
     const originId = source.droppableId as Status;
     const desId = destination.droppableId as Status;
     // get card info
-    const data = getCardByStatus(draggableId, originId, store);
+    const card = getCardByStatus(draggableId, originId, store);
+    const { data: oldData, index } = card;
     // update card status
-    const newData = updateCardStatus(data, desId);
+    const newData = updateCardStatus(oldData, desId);
     // dispatch store
-    store.dispatch(deleteCard(originId, data.id));
+    store.dispatch(deleteCard(originId, index));
     store.dispatch(addCard(desId, newData));
   };
 
   return (
     <>
-    <div className="ws-container">
-      <DragDropContext onDragEnd={onDragEnd}>
-        {Object.keys(Status).map((status: Status) => {
-          return <Lane key={status} id={status} status={status} />;
-        })}
-      </DragDropContext>
-    </div>
+      <div className="ws-container">
+        <DragDropContext onDragEnd={onDragEnd}>
+          {Object.keys(Status).map((status: Status) => {
+            return <Lane key={status} id={status} status={status} />;
+          })}
+        </DragDropContext>
+      </div>
     </>
-    
   );
 }

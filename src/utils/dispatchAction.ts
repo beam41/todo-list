@@ -18,9 +18,17 @@ export const addCard = (key: Status, data: IBacklogItem): DispatchAction => {
   };
 };
 
-export const deleteCard = (key: Status, id: string): DispatchAction => {
+export const editCard = (key: Status, data: IBacklogItem): DispatchAction => {
+  return {
+    type: `EDIT_${key}`,
+    payload: data,
+  };
+};
+
+
+export const deleteCard = (key: Status, index: number): DispatchAction => {
   return {
     type: `DELETE_${key}`,
-    payload: id,
+    payload: index,
   };
 };

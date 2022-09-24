@@ -11,6 +11,7 @@ export type IBacklog = {
 
 export interface IBacklogItem {
   id: string;
+  index?: number,
   status: Status;
   name: string;
   description: string;
