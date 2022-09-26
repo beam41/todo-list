@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import { mockData } from "../mock-data/data";
 import { IBacklog, IBacklogItem, Status } from "../Models/Backlog.Model";
-import "../Styles/Lane.css";
+import styles from "../Styles/Lane.module.scss";
 import { createCard } from "../utils/dispatchAction";
 import Card from "./Card";
 
@@ -27,13 +27,13 @@ const Lane = ({ id, status, data }: IComponentProps) => {
   };
 
   return (
-    <div className="lane-container">
-      <div className="lane-title">{status}</div>
+    <div className={styles.laneContainer}>
+      <div className={styles.laneTitle}>{status}</div>
 
       <Droppable droppableId={id}>
         {(provided) => (
           <div
-            className="card-container"
+            className={styles.cardContainer}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
