@@ -94,7 +94,7 @@ export default function Card({ data, index }: IComponentProp) {
                 <div className={clsx(styles.tag, statusClassMap[status])}>{status}</div>
               ) : (
                 <Tooltip placement="bottom" title="Delete">
-                  <div className={clsx(styles.tag, styles.tag)} onClick={showConfirmDelete}>
+                  <div className={clsx(styles.tag, styles.delete)} onClick={showConfirmDelete}>
                     <DeleteFilled />
                   </div>
                 </Tooltip>
