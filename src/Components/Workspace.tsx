@@ -1,7 +1,7 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { Status } from "../Models/Backlog.Model";
-import "../Styles/Workspace.css";
+import styles from "../Styles/Workspace.module.scss";
 import { getCardByStatus, updateCardStatus } from "../utils/cardService";
 import { addCard, deleteCard } from "../utils/dispatchAction";
 import Lane from "./Lane";
@@ -31,7 +31,7 @@ export default function Workspace() {
 
   return (
     <>
-      <div className="ws-container">
+      <div className={styles.wsContainer}>
         <DragDropContext onDragEnd={onDragEnd}>
           {Object.keys(Status).map((status: Status) => {
             return <Lane key={status} id={status} status={status} />;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Input, Button } from "antd";
-import "../Styles/Header.css";
+import styles from "../Styles/Header.module.scss";
 import FormModal from "./FormModal";
 import { Status } from "../Models/Backlog.Model";
 import { creatNewCard } from "../utils/cardService";
@@ -62,7 +62,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="hd-container">
+      <div className={styles.hdContainer}>
         <Search
           placeholder="Search Title"
           id="search-input"

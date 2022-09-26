@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { IBacklogItem } from "../Models/Backlog.Model";
+import {IBacklogItem, Status} from "../Models/Backlog.Model";
 import { getCardByStatus } from "../utils/cardService";
 import { deleteCard, editCard } from "../utils/dispatchAction";
 import FormModal from "./FormModal";
 import { DeleteFilled } from "@ant-design/icons";
 import { Tooltip, Modal } from "antd";
-import "../Styles/Card.css";
+import styles from "../Styles/Card.module.scss";
+import clsx from "clsx";
 const { confirm } = Modal;
 
 interface IComponentProp {
   data: IBacklogItem;
   index: number;
+}
+
+const statusClassMap: Record<Status, string> = {
+  [Status.TODO]: styles.TODO,
+  [Status.DOING]: styles.DOING,
+  [Status.DONE]: styles.DONE,
 }
 
 export default function Card({ data, index }: IComponentProp) {
@@ -74,7 +81,7 @@ export default function Card({ data, index }: IComponentProp) {
       <Draggable key={id} draggableId={id} index={index}>
         {(provided) => (
           <div
-            className="card"
+            className={styles.card}
             onClick={modalHandler}
             ref={provided.innerRef}
             {...provided.draggableProps}
@@ -84,18 +91,18 @@ export default function Card({ data, index }: IComponentProp) {
           >
             <>
               {!showDelete ? (
-                <div className={`tag ${status}`}>{status}</div>
+                <div className={clsx(styles.tag, statusClassMap[status])}>{status}</div>
               ) : (
                 <Tooltip placement="bottom" title="Delete">
-                  <div className={`tag delete`} onClick={showConfirmDelete}>
+                  <div className={clsx(styles.tag, styles.tag)} onClick={showConfirmDelete}>
                     <DeleteFilled />
                   </div>
                 </Tooltip>
               )}
             </>
 
-            <div className="title">{name}</div>
-            {description && <div className="detail">{description}</div>}
+            <div className={styles.title}>{name}</div>
+            {description && <div className={styles.detail}>{description}</div>}
           </div>
         )}
       </Draggable>
