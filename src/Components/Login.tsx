@@ -1,5 +1,5 @@
 import { Tooltip } from "antd";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "../Styles/Login.module.scss";
 import user from "../utils/user";
 
@@ -8,22 +8,17 @@ interface IComponentProps {
 }
 
 export default function Login({ isAuthen }: IComponentProps) {
-  const [content, setContent] = useState("");
-  const [tooltip, setTooltip] = useState("");
-
-  useEffect(() => {
+  const [content, tooltip] = useMemo(() => {
     if (isAuthen) {
-      setContent(user.username);
-      setTooltip("Click to logout");
-    } else {
-      setContent("Login");
-      setTooltip("Login to save your data!");
+      return [user.username, "Click to logout"];
     }
+
+    return ["Login", "Login to save your data!"];
   }, [isAuthen]);
 
   const onClick = async () => {
-    const handler = isAuthen ? user.logout() : user.login();
-    return await handler;
+    const handler = isAuthen ? user.logout : user.login;
+    return await handler();
   };
 
   return (
