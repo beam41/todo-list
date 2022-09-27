@@ -1,5 +1,5 @@
-import { firestore } from "../../firebase/config";
+import { firestore } from '../../firebase/config'
 
 class BacklogRepository {}
 
-export default new BacklogRepository();
+export default new BacklogRepository()

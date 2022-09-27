@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { Input, Modal, Form } from "antd";
-const { TextArea } = Input;
+import { useEffect } from 'react'
+import { Input, Modal, Form } from 'antd'
+const { TextArea } = Input
 
 interface IComponentProps {
-  isShown: boolean;
-  submitText: string;
-  title?: string;
-  description?: string;
-  handleFunction: Function;
-  modalHandler: VoidFunction;
+  isShown: boolean
+  submitText: string
+  title?: string
+  description?: string
+  handleFunction: Function
+  modalHandler: VoidFunction
 }
 
 export default function FormModal({
@@ -19,20 +19,20 @@ export default function FormModal({
   handleFunction,
   modalHandler,
 }: IComponentProps) {
-  const [form] = Form.useForm();
-  
+  const [form] = Form.useForm()
+
   useEffect(() => {
-    if (form) form.resetFields();
-  }, [isShown]);
+    if (form) form.resetFields()
+  }, [isShown])
 
   const onSubmit = async () => {
     try {
-      const data = await form.validateFields();
-      await handleFunction(data);
+      const data = await form.validateFields()
+      await handleFunction(data)
     } catch (error) {
-      console.log("Validate Failed:", error);
+      console.log('Validate Failed:', error)
     }
-  };
+  }
 
   return (
     <Modal
@@ -48,7 +48,7 @@ export default function FormModal({
         layout="vertical"
         name="form_in_modal"
         initialValues={{
-          modifier: "public",
+          modifier: 'public',
         }}
       >
         <Form.Item
@@ -58,7 +58,7 @@ export default function FormModal({
           rules={[
             {
               required: true,
-              message: "Please title",
+              message: 'Please title',
             },
           ]}
         >
@@ -69,9 +69,9 @@ export default function FormModal({
           label="Description"
           initialValue={description}
         >
-          <TextArea autoSize style={{ resize: "none" }} />
+          <TextArea autoSize style={{ resize: 'none' }} />
         </Form.Item>
       </Form>
     </Modal>
-  );
+  )
 }

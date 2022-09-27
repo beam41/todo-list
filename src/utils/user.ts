@@ -1,18 +1,18 @@
-import { login, logout } from "../firebase/authentication";
+import { login, logout } from '../firebase/authentication'
 
 class User {
-  id = "";
-  username = "";
+  id = ''
+  username = ''
 
-  verifyToken = async () => {};
+  verifyToken = async () => {}
 
   login = async () => {
-    await login();
-  };
+    await login()
+  }
 
   logout = async () => {
-    await logout();
-  };
+    await logout()
+  }
 }
 
-export default new User();
+export default new User()
