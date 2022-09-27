@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 import { Input, Button } from "antd";
 import styles from "../Styles/Header.module.scss";
 import FormModal from "./FormModal";
@@ -16,15 +16,13 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const searchHandler = (val: string) => {
-    Boolean(val) ? onSearch(val) : onClearSearch();
+    val ? onSearch(val) : onClearSearch();
   };
 
-  const onSearchPressEnter = () => {
-    const search: HTMLInputElement = document.getElementById(
-      "search-input"
-    ) as any;
+  const onSearchPressEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+    const value = (event.target as HTMLInputElement).value
 
-    if (search.value) searchHandler(search.value);
+    searchHandler(value);
   };
 
   const onSearch = (val: string) => {
@@ -65,7 +63,6 @@ export default function Header() {
       <div className={styles.hdContainer}>
         <Search
           placeholder="Search Title"
-          id="search-input"
           style={{ width: 250 }}
           loading={isSearching}
           onSearch={searchHandler}
