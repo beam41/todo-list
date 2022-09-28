@@ -4,11 +4,13 @@ import { Status } from "../Models/Backlog.Model";
 import styles from "../Styles/Workspace.module.scss";
 import { getCardByStatus, updateCardStatus } from "../utils/cardService";
 import { addCard, deleteCard } from "../utils/dispatchAction";
+import backlogRepo from "../utils/repositories/backlogRepo";
+import user from "../utils/user";
 import Lane from "./Lane";
 
 export default function Workspace() {
   const dispatch = useDispatch();
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     const { destination, source, draggableId } = result;
 
     // !destination for undroppable area
@@ -16,7 +18,7 @@ export default function Workspace() {
     if (!destination || destination.droppableId === source.droppableId) {
       return;
     }
-    // get originId and destinationId
+    // get originId and destinationId 
     const originId = source.droppableId as Status;
     const desId = destination.droppableId as Status;
     // get card info
@@ -27,6 +29,8 @@ export default function Workspace() {
     // dispatch store
     dispatch(deleteCard(originId, index));
     dispatch(addCard(desId, newData));
+    // update db
+    if(user.id) await backlogRepo.updateItem(newData)
   };
 
   return (

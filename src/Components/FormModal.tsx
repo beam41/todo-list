@@ -30,7 +30,7 @@ export default function FormModal({
       const data = await form.validateFields();
       await handleFunction(data);
     } catch (error) {
-      console.log("Validate Failed:", error);
+      console.error("Validate Failed =>", error);
     }
   };
 

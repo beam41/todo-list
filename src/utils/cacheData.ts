@@ -7,7 +7,7 @@ class Cache {
   searchKey: string = "";
 
   // get data
-  getTodo = () => {
+  getTodo = () => {   
     return [...this.todo];
   };
   getDoing = () => {

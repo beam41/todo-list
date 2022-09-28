@@ -7,6 +7,8 @@ import { IBacklog, IBacklogItem, Status } from "../Models/Backlog.Model";
 import styles from "../Styles/Lane.module.scss";
 import { createCard } from "../utils/dispatchAction";
 import Card from "./Card";
+import backlogRepo from "../utils/repositories/backlogRepo";
+import user from "../utils/user";
 
 interface IComponentProps {
   id: string;
@@ -16,13 +18,14 @@ interface IComponentProps {
 
 const Lane = ({ id, status, data }: IComponentProps) => {
   const dispatch = useDispatch();
+  
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
     // fetch data
-    const d = mockData[status];
+    const d = !user.id ? [] : await backlogRepo.getItems(status);
     dispatch(createCard(status, d));
   };
 

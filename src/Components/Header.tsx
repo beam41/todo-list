@@ -7,6 +7,8 @@ import { creatNewCard } from "../utils/cardService";
 import { useDispatch } from "react-redux";
 import { addCard, searchCard } from "../utils/dispatchAction";
 import cacheData from "../utils/cacheData";
+import backlogRepo from "../utils/repositories/backlogRepo";
+import user from "../utils/user";
 
 const { Search } = Input;
 
@@ -53,10 +55,12 @@ export default function Header() {
   const onCreateCard = async (data: any) => {
     try {
       const payload = creatNewCard(data.title, data.description);
+      
+      if (user.id) await backlogRepo.createItem(payload);
       dispatch(addCard(Status.TODO, payload));
       modalHandler();
     } catch (error) {
-      console.log("error =>", error);
+      console.error("Create Error =>", error);
     }
   };
 

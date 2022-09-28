@@ -4,7 +4,6 @@ class User {
   id = "";
   username = "";
 
-  verifyToken = async () => {};
 
   login = async () => {
     await login();
