@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { Input, Modal, Form } from 'antd'
+import {useEffect, useRef} from 'react'
+import {Input, Modal, Form, InputRef} from 'antd'
 const { TextArea } = Input
 
 interface IComponentProps {
