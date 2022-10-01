@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { Input, Modal, Form } from "antd";
-const { TextArea } = Input;
+import { useEffect } from 'react'
+import { Input, Modal, Form } from 'antd'
+const { TextArea } = Input
 
 interface IComponentProps {
   isShown: boolean;
@@ -19,11 +19,17 @@ export default function FormModal({
   handleFunction,
   modalHandler,
 }: IComponentProps) {
-  const [form] = Form.useForm();
-  
+  const titleRef = useRef<InputRef>(null)
+  const [form] = Form.useForm()
+
   useEffect(() => {
-    if (form) form.resetFields();
-  }, [isShown]);
+    if (isShown) {
+      form?.resetFields()
+      setTimeout(() => {
+        titleRef?.current.focus({ cursor: 'end' })
+      })
+    }
+  }, [isShown])
 
   const onSubmit = async () => {
     try {
@@ -62,7 +68,7 @@ export default function FormModal({
             },
           ]}
         >
-          <Input showCount maxLength={30} />
+          <Input showCount maxLength={30} ref={titleRef} />
         </Form.Item>
         <Form.Item
           name="description"

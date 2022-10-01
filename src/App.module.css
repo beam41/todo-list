@@ -7,7 +7,10 @@
   background-color: #f5f5ea;
 }
 
-.App-container {
+.AppContainer {
   min-height: 100vh;
   width: 60vw;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 25px;
 }

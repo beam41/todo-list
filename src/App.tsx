@@ -1,14 +1,14 @@
-import "antd/dist/antd.css";
-import "./App.css";
-import { useEffect, useState } from "react";
-import Header from "./Components/Header";
-import Workspace from "./Components/Workspace";
-import { BackTop, Button } from "antd";
-import { ArrowUpOutlined } from "@ant-design/icons";
-import Login from "./Components/Login";
-import user from "./utils/user";
-import { auth } from "./firebase/config";
-import { onAuthStateChanged } from "@firebase/auth";
+import 'antd/dist/antd.css'
+import styles from './App.module.css'
+import { useEffect, useState } from 'react'
+import Header from './Components/Header'
+import Workspace from './Components/Workspace'
+import { BackTop, Button } from 'antd'
+import { ArrowUpOutlined } from '@ant-design/icons'
+import Login from './Components/Login'
+import user from './utils/user'
+import { auth } from './firebase/config'
+import { onAuthStateChanged } from '@firebase/auth'
 
 function App() {
   const [shouldDisplay, setShouldDisplay] = useState(false);
@@ -31,9 +31,9 @@ function App() {
   return (
     <>
       {shouldDisplay && (
-        <div className="App">
-          <div className="App-container">
-            <Login isAuthen={isAuthen} />
+        <div className={styles.App}>
+          <Login isAuthen={isAuthen} />
+          <div className={styles.AppContainer}>
             <Header />
             <Workspace />
           </div>

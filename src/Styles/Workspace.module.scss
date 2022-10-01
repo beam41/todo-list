@@ -1,9 +1,18 @@
 .wsContainer {
-  margin-top: 17px;
+  flex: 1;
+  margin-top: 25px;
   min-width: 760px;
-  min-height: 82vh;
-  border-radius: 25px 25px 0px 0px;
-  display: flex;
-  justify-content: center;
-  background-image: linear-gradient(to right top, #bebebe, #c7c7c7, #d1d1d1, #dadada, #e4e4e4);
+  border-radius: 25px;
+  padding: 25px;
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  background-image: linear-gradient(
+    to right top,
+    #bebebe,
+    #c7c7c7,
+    #d1d1d1,
+    #dadada,
+    #e4e4e4
+  );
 }
